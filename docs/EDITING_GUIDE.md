@@ -6,7 +6,7 @@
 
 | 页面 | HTML 区块 | 专属样式关键词 | 主要内容 |
 | --- | --- | --- | --- |
-| About Me | `#about` | `.hero`、`.hero-grid`、`.status` | 研究定位、个人简介、当前议题 |
+| About Me | `#about` | `.about-*`、`.news-*`、`.statement` | 个人简介、研究议题、最新学术动态 |
 | Research | `#research` | `.research-*`、`.featured`、`.project` | 研究方向、重点项目 |
 | Publications | `#publications` | `.pub-*` | 论文年份、题目、作者、链接 |
 | Service | `#service` | `.practice`、`.mini-list` | 教学、研究与学术服务 |
@@ -47,4 +47,3 @@
 - 需要统一构建、图片优化或持续部署。
 
 届时可迁移到 Astro 等静态站点生成器，并保留当前设计 token、语义结构和素材路径。
-

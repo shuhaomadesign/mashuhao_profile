@@ -59,14 +59,20 @@
     .section-label:after{content:"";height:1px;background:var(--line);flex:1}
 
     /* About page */
-    .hero{display:flex;flex-direction:column;justify-content:center}
-    .hero .kicker{margin:0 0 1.1rem;font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pink)}
-    .hero h2{max-width:1050px;margin:0;font-size:clamp(2.1rem,9vw,5.4rem);line-height:1.02;letter-spacing:-.03em;font-weight:600}
-    .hero h2 em{font-style:normal;color:var(--pink)}
-    .hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(200px,.65fr);gap:clamp(1.5rem,6vw,4rem);margin-top:2.2rem}
-    .statement{max-width:780px;margin:0;font-size:clamp(1rem,1.8vw,1.28rem);line-height:1.58}
-    .status{align-self:end;padding:1.1rem;border:1px solid var(--line);font-size:.85rem;line-height:1.58}
-    .status strong{display:block;margin-bottom:.3rem;color:var(--pink);font-size:.67rem;letter-spacing:.08em;text-transform:uppercase}
+    .about-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr);gap:clamp(2.5rem,6vw,5rem);align-items:start}
+    .about-intro h2{max-width:15ch;margin:0 0 1.6rem;font-size:clamp(1.7rem,3.2vw,2.8rem);line-height:1.08;letter-spacing:-.035em;font-weight:620}
+    .about-intro h2 em{font-style:normal;color:var(--pink)}
+    .statement{max-width:62ch;margin:0;padding-top:1.5rem;border-top:1px solid var(--line);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.72}
+    .about-topics{margin:1.7rem 0 0;font-size:.72rem;font-weight:750;line-height:1.6;letter-spacing:.07em;text-transform:uppercase;color:var(--pink)}
+    .news-panel{min-width:0;padding-left:clamp(1.5rem,3vw,2.5rem);border-left:1px solid var(--line)}
+    .news-heading{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+    .news-heading h3{margin:0;font-size:1.05rem;letter-spacing:-.015em}
+    .news-heading span{font:750 .62rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)}
+    .news-list{border-top:1px solid var(--line)}
+    .news-item{display:grid;grid-template-columns:4.5rem minmax(0,1fr);gap:1rem;padding:1.05rem 0;border-bottom:1px solid var(--line)}
+    .news-item time{font:750 .69rem/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--pink)}
+    .news-item p{margin:0;font-size:.88rem;line-height:1.55}
+    .news-item a{text-underline-offset:3px}
 
     /* Research page */
     .research-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
@@ -130,7 +136,7 @@
       .page{height:100%;overflow-y:auto;padding:clamp(2.4rem,4.5vw,4.5rem) clamp(1.8rem,4vw,4.5rem);border-bottom:0;scrollbar-width:thin}
       .page::-webkit-scrollbar{width:6px}
       .page::-webkit-scrollbar-thumb{background:var(--line)}
-      .hero{min-height:0;height:100%}
+      .about-page{min-height:100%}
 
       .page-dots{position:fixed;right:clamp(.8rem,1.6vw,1.6rem);top:50%;transform:translateY(-50%);z-index:25;display:flex;flex-direction:column;gap:.65rem}
       .page-dots button{width:8px;height:8px;padding:0;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
@@ -156,8 +162,8 @@
       .section-label{margin-bottom:1.8rem;font-size:.64rem}
 
       /* single-column reading order for every grid below desktop width */
-      .hero-grid{grid-template-columns:1fr;gap:1.6rem}
-      .status{align-self:auto}
+      .about-layout{grid-template-columns:1fr;gap:2.5rem}
+      .news-panel{padding:2rem 0 0;border-left:0;border-top:1px solid var(--line)}
       .research-grid{grid-template-columns:1fr;border-left:0}
       .research-card{border-left:1px solid var(--line);min-height:0;padding:1.3rem 1.4rem}
       .research-card h3{margin-top:1.6rem}
@@ -194,7 +200,7 @@
       .chip{width:2.75rem;height:2.75rem}
 
       .page{padding-left:1.15rem;padding-right:1.15rem}
-      .hero h2{font-size:clamp(2rem,11vw,2.9rem)}
+      .about-intro h2{font-size:clamp(1.75rem,9vw,2.35rem)}
       .statement{font-size:1rem}
       .collab-lede{font-size:clamp(1.4rem,8.5vw,1.9rem);margin-bottom:2rem}
       .pub-title{font-size:1rem}
@@ -252,12 +258,28 @@
     <div class="content" id="pager">
       <div class="pages" id="pages">
 
-        <section class="page hero" id="about" aria-labelledby="hero-title">
-          <p class="kicker">Labor · justice · sustainable technological futures</p>
-          <h2 id="hero-title">Designing fairer ways of <em>working</em> with technology.</h2>
-          <div class="hero-grid">
-            <p class="statement">I study how design shapes labor conditions—and how designers, workers, and institutions can imagine more equitable technological futures. My work brings worker-centered design, service design, and critical inquiry into conversation.</p>
-            <div class="status"><strong>Currently</strong>Building a research agenda across labor and AI, citizen-centered automation, ecological interaction, and design education.</div>
+        <section class="page about-page" id="about" aria-labelledby="about-title">
+          <div class="section-label" id="about-title">00 — About me</div>
+          <div class="about-layout">
+            <div class="about-intro">
+              <h2>I study how design shapes <em>labor and technological futures.</em></h2>
+              <p class="statement">I am an HCI and design researcher working across worker-centered design, service design, and critical inquiry. My research examines how platforms, automation, and design practices shape labor conditions, and how designers, workers, and institutions can build more equitable technological futures. I am particularly interested in labor and AI, justice-oriented design methods, citizen-centered automation, sustainable interaction, and design education.</p>
+              <p class="about-topics">Labor &amp; AI · Worker-centered design · Service design · Sustainable HCI</p>
+            </div>
+
+            <aside class="news-panel" aria-labelledby="news-title">
+              <div class="news-heading">
+                <h3 id="news-title">Latest news</h3>
+                <span>Academic updates</span>
+              </div>
+              <div class="news-list">
+                <article class="news-item"><time datetime="2026">2026</time><p>Joining Northumbria University as Lecturer in Computer Science.</p></article>
+                <article class="news-item"><time datetime="2026">2026</time><p>“Revisiting Worker-Centered Design” accepted at CHI 2026.</p></article>
+                <article class="news-item"><time datetime="2026">2026</time><p>Serving as Associate Chair for CHI and DIS.</p></article>
+                <article class="news-item"><time datetime="2026">2026</time><p>Teaching Service Design at the University of Lisbon and Social Justice &amp; Ethics at the SID Summer School.</p></article>
+                <article class="news-item"><time datetime="2024-2025">2024–25</time><p>Visiting PhD Researcher at Carnegie Mellon University’s Human-Computer Interaction Institute.</p></article>
+              </div>
+            </aside>
           </div>
         </section>
 

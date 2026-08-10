@@ -59,9 +59,10 @@
 
     /* About page */
     .about-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;align-items:start}
-    .about-intro{min-width:0;padding-right:clamp(1.5rem,3.5vw,3.5rem)}
-    .about-intro h2{max-width:18ch;margin:0 0 1.5rem;font-size:clamp(1.4rem,2.4vw,2.05rem);line-height:1.15;letter-spacing:-.025em;font-weight:620}
+    .about-intro{min-width:0;padding-right:clamp(1.5rem,3.5vw,3.5rem);container-type:inline-size}
+    .about-intro h2{margin:0 0 1.5rem;font-size:clamp(1.3rem,2.4vw,2.05rem);font-size:clamp(1rem,5.8cqi,2.05rem);line-height:1.15;letter-spacing:-.025em;font-weight:620}
     .about-intro h2 em{font-style:normal;color:var(--pink)}
+    .headline-line{display:block;white-space:nowrap}
     .statement{max-width:62ch;margin:0;padding-top:1.5rem;border-top:1px solid var(--line);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.72}
     .news-panel{min-width:0;padding-left:clamp(1.5rem,3.5vw,3.5rem);border-left:1px solid var(--line)}
     .news-heading{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1rem}
@@ -200,7 +201,6 @@
       .chip{width:2.75rem;height:2.75rem}
 
       .page{padding-left:1.15rem;padding-right:1.15rem}
-      .about-intro h2{font-size:clamp(1.45rem,7vw,1.9rem)}
       .statement{font-size:1rem}
       .collab-lede{font-size:clamp(1.4rem,8.5vw,1.9rem);margin-bottom:2rem}
       .pub-title{font-size:1rem}
@@ -262,7 +262,7 @@
           <div class="section-label" id="about-title">About me</div>
           <div class="about-layout">
             <div class="about-intro">
-              <h2>I study how design shapes <em>just and sustainable futures.</em></h2>
+              <h2><span class="headline-line">I study how design shapes</span><em class="headline-line">just and sustainable futures.</em></h2>
               <p class="statement">I am an HCI and design researcher working across worker-centered design, service design, and critical inquiry. My research examines how platforms, automation, and design practices shape labor conditions, and how designers, workers, and institutions can build more equitable technological futures. I am particularly interested in labor and AI, justice-oriented design methods, citizen-centered automation, sustainable interaction, and design education.</p>
             </div>
 

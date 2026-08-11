@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Shuhao Ma is an HCI and design researcher studying labor, justice, and sustainable technological futures.">
+  <title>Shuhao Ma — HCI &amp; Design Researcher</title>
+  <style>
+    :root{
+      --blue:#0735b5;--blue-dark:#042586;--paper:#f1f5ff;--white:#fff;--pink:#ff9abb;--violet:#8d7bff;--ink:#07102f;--line:rgba(255,255,255,.35);
+      --nav-h:64px;--side-w:clamp(300px,30vw,420px);
+      --type-display:clamp(1.6rem,2.4vw,2.5rem);--type-title:clamp(1.1rem,1.45vw,1.25rem);--type-body:clamp(1rem,1.15vw,1.1rem);--type-small:.75rem;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--blue);color:var(--white);font-family:Calibri,"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;text-transform:lowercase;-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    ::selection{background:var(--pink);color:var(--ink)}
+    :focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+    /* ---------- Nav ---------- */
+    .site-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:30;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 clamp(1rem,3vw,3rem);background:rgba(7,53,181,.93);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);font-size:var(--type-body);font-weight:400;letter-spacing:0;text-transform:lowercase}
+    .brand{text-decoration:none;cursor:pointer}
+    .brand i{font-style:normal;color:var(--pink)}
+    .nav-links{display:flex;gap:1.3rem}
+    .nav-links a{text-decoration:none;position:relative;padding:.3rem 0;transition:color .2s}
+    .nav-links a:hover{color:var(--pink)}
+    .nav-links a.active{color:var(--pink)}
+    .nav-links a.active:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--pink)}
+    .nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:44px;height:44px;padding:0;background:transparent;border:1px solid var(--line);border-radius:6px;cursor:pointer;flex:none}
+    .nav-toggle span{display:block;width:16px;height:2px;background:var(--white);border-radius:1px;transition:transform .2s,opacity .2s}
+    .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+    /* ---------- Layout shell (mobile-first: normal document flow) ---------- */
+    body{padding-top:var(--nav-h)}
+    .shell{max-width:1600px;margin:auto}
+    .identity{position:relative;padding:clamp(1.8rem,7vw,3.5rem) clamp(1.25rem,5vw,4rem) clamp(2.2rem,7vw,3.5rem);border-bottom:1px solid var(--line)}
+    .identity-inner{display:block}
+    .portrait{display:block;width:min(72%,280px);height:auto;aspect-ratio:1;margin:0 auto;object-fit:cover;object-position:center 34%;border:1px solid var(--line);border-radius:50%}
+    .identity h1{margin:1.3rem 0 0;font-size:var(--type-title);font-weight:400;line-height:1.2;letter-spacing:0;text-align:center;white-space:nowrap}
+    .role{margin:.5rem 0 0;font-size:var(--type-body);line-height:1.35;color:var(--pink);font-weight:650;text-align:center}
+    .role small{display:block;margin-top:.35rem;font-size:var(--type-small);font-weight:600;color:var(--white);letter-spacing:0}
+    .meta{display:grid;gap:.85rem;margin-top:1.5rem;padding:1.15rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:var(--type-body);line-height:1.42}
+    .meta-row{display:grid;grid-template-columns:4.5rem 1fr;gap:.45rem;align-items:baseline}
+    .meta-row span:first-child{font-size:var(--type-body);font-weight:400;line-height:inherit;letter-spacing:0;text-transform:lowercase}
+    .meta-row a{text-decoration:none;border-bottom:1px solid transparent}
+    .meta-row a:hover{border-color:currentColor}
+    .contact{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin-top:1.3rem}
+    .chip{display:inline-flex;align-items:center;justify-content:center;width:2.6rem;height:2.6rem;padding:0;border:1px solid var(--line);border-radius:999px;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+    .chip svg{width:1.2rem;height:1.2rem;display:block}
+    .chip:hover,.chip:active{background:var(--pink);color:var(--ink);border-color:var(--pink)}
+
+    .content{min-width:0}
+    .page{padding:clamp(3rem,7vw,5rem) clamp(1.4rem,5vw,4rem);border-bottom:1px solid var(--line)}
+    .section-label{margin:0 0 2.2rem;font-size:var(--type-title);font-weight:720;line-height:1.2;letter-spacing:-.015em;color:var(--pink)}
+
+    /* About page */
+    .about-layout{display:grid;grid-template-columns:minmax(0,1fr) var(--side-w);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"about-title news-title" "intro news";gap:0;align-items:start}
+    .about-title{grid-area:about-title}
+    .about-intro{grid-area:intro;min-width:0;padding-right:clamp(1.5rem,3.5vw,3.5rem);container-type:inline-size}
+    .about-intro h2{margin:0 0 1.5rem;font-size:var(--type-display);line-height:1.15;letter-spacing:-.025em;font-weight:620}
+    .greeting{white-space:nowrap}
+    .greeting [lang="zh-CN"]{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif}
+    .statement{max-width:62ch;margin:0;padding-top:1.5rem;border-top:1px solid var(--line);font-size:var(--type-body);line-height:1.2}
+    .statement p{margin:0}
+    .statement p+p{margin-top:1.2rem}
+    .statement-highlight{color:var(--pink);font-weight:650}
+    .news-heading{grid-area:news-title;padding-left:clamp(1.5rem,3.5vw,3.5rem)}
+    .news-panel{grid-area:news;min-width:0;padding-left:clamp(1.5rem,3.5vw,3.5rem)}
+    .news-list{height:min(52vh,500px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+    .news-list::-webkit-scrollbar{width:6px}
+    .news-list::-webkit-scrollbar-thumb{background:var(--line)}
+    .news-item{display:grid;grid-template-columns:6.8rem minmax(0,1fr);gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--line);font-size:var(--type-body);line-height:1.2}
+    .news-item:last-child{border-bottom:0}
+    .news-item time{font:inherit;color:inherit}
+    .news-item p{margin:0;font:inherit}
+    .news-item a{text-underline-offset:3px}
+    .news-item:first-child{padding-top:0;color:var(--pink)}
+
+    /* Research page */
+    .research-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;align-items:stretch;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+    .research-card{min-width:0;height:100%;padding:1.3rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column}
+    .research-heading{display:grid;grid-template-rows:auto 5.4em;align-content:start;gap:1rem;margin-bottom:.35rem}
+    .research-card .num{font-size:var(--type-body);font-weight:400;line-height:1.2;color:var(--pink)}
+    .research-card h3{margin:0;font-size:var(--type-title);line-height:1.08;letter-spacing:-.03em}
+    .research-card p{margin:0;line-height:1.2;font-size:var(--type-body)}
+    .featured-label{margin-top:3rem}
+    .featured{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;align-items:stretch;gap:1px;background:var(--line);border:1px solid var(--line)}
+    .project{--project-pad:clamp(.8rem,1.5vw,1.2rem);min-width:0;height:100%;aspect-ratio:1;background:var(--blue);padding:0 0 var(--project-pad);display:flex;flex-direction:column}
+    .project-visual{flex:1;min-width:0;min-height:0;margin-bottom:1rem;border-bottom:1px solid var(--line);position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,transparent 0 20px,rgba(255,255,255,.08) 20px 21px)}
+    .project-visual:before,.project-visual:after{content:"";position:absolute;border-radius:50%;border:1px solid var(--pink)}
+    .project-visual:before{width:70px;height:70px;left:9%;top:8px}
+    .project-visual:after{width:100px;height:100px;right:8%;top:-30px}
+    .project-visual.has-image{background:none}
+    .project-visual.has-image:before,.project-visual.has-image:after{display:none}
+    .project-visual img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 58%}
+    .project-visual.memex-image img{object-position:center 48%}
+    .project h3{margin:0 var(--project-pad);font-size:var(--type-title);line-height:1.1;letter-spacing:-.03em}
+    .project-meta{margin:.55rem var(--project-pad) 0;font-size:var(--type-small);line-height:1.2;color:var(--pink)}
+
+    /* Publications page */
+    .pub-list{border-top:1px solid var(--line)}
+    .pub{display:grid;grid-template-columns:4rem minmax(0,1fr) 7rem;gap:1.1rem;padding:1.1rem 0;border-bottom:1px solid var(--line);align-items:start}
+    .pub-year{font-size:var(--type-body);font-weight:750;line-height:1.4;color:var(--pink)}
+    .pub-title{margin:0 0 .35rem;font-size:var(--type-body);font-weight:680;line-height:1.35}
+    .pub-authors{margin:0;font-size:var(--type-body);line-height:1.45}
+    .pub-venue{text-align:right;font-size:var(--type-body);font-weight:800;letter-spacing:.06em;text-transform:lowercase}
+    .pub-venue a{text-underline-offset:3px}
+    .pub-note{margin:1.2rem 0 0;font-size:var(--type-small)}
+
+    /* Service page */
+    .practice{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+    .service-column{min-width:0;padding:0 clamp(1rem,2vw,1.6rem)}
+    .service-column:first-child{padding-left:0}
+    .service-column:last-child{padding-right:0}
+    .service-column+.service-column{border-left:1px solid var(--line)}
+    .practice h2{margin:0 0 2.2rem;font-size:var(--type-title);font-weight:720;line-height:1.2;letter-spacing:-.015em;color:var(--pink)}
+    .mini-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+    .mini-list li{display:grid;grid-template-columns:4rem minmax(0,1fr);gap:.75rem;padding:.8rem 0;border-bottom:1px solid var(--line);font-size:var(--type-body);line-height:1.2}
+    .mini-list time{color:var(--pink);font-size:var(--type-body);font-weight:400;line-height:1.2}
+    .service-group{padding:.8rem 0;border-top:1px solid var(--line)}
+    .service-group:last-child{border-bottom:1px solid var(--line)}
+    .service-group h3{margin:0 0 .8rem;font-size:var(--type-body);line-height:1.2}
+    .community-list{border-top:0}
+    .community-list li{display:block;padding:0;border-bottom:0;line-height:1.2}
+    .community-list li+li{margin-top:.45rem}
+    .service-note{margin:.7rem 0 0;font-size:var(--type-small);line-height:1.2;color:var(--pink)}
+
+    /* Collaboration page */
+    .collab-lede{max-width:62ch;margin:0 0 2.2rem;font-size:var(--type-body);line-height:1.2;font-weight:400}
+    .collab-grid{max-width:62ch}
+    .collab-grid ul{list-style:disc;margin:0;padding-left:1.1rem;font-size:var(--type-body);line-height:1.2}
+    .collab-grid ul li{margin:0;padding:0}
+    .collab-grid ul li+li{margin-top:.65rem}
+    .collaboration-page{display:flex;flex-direction:column}
+    .collab-cta{margin-top:2.2rem}
+    .collab-cta a{display:inline-block;color:var(--pink);font-weight:400;text-underline-offset:4px;font-size:var(--type-body)}
+    .site-footer{margin-top:auto;padding-top:1rem;border-top:1px solid var(--line);font-size:var(--type-body);font-weight:400;line-height:1.2}
+
+    /* ---------- Desktop: fixed sidebar + paged content ---------- */
+    @media(min-width:1024px){
+      .shell{display:block}
+      .identity{position:fixed;top:var(--nav-h);left:0;width:var(--side-w);height:calc(100vh - var(--nav-h));overflow-y:auto;padding:clamp(1.8rem,3vw,3rem) clamp(1.4rem,2.4vw,2.6rem);border-right:1px solid var(--line);border-bottom:0}
+      .identity::-webkit-scrollbar{width:6px}
+      .identity::-webkit-scrollbar-thumb{background:var(--line)}
+      .portrait{max-width:100%;aspect-ratio:1}
+      .identity h1{margin-top:1.5rem}
+      .chip{width:2.35rem;height:2.35rem}
+      .chip svg{width:1.15rem;height:1.15rem}
+
+      .content{position:fixed;top:var(--nav-h);left:var(--side-w);right:0;height:calc(100vh - var(--nav-h));overflow:hidden}
+      .pages{height:100%;transition:transform .7s cubic-bezier(.65,0,.2,1);will-change:transform}
+      .page{--page-pad-x:clamp(1.8rem,4vw,4.5rem);--page-pad-y:clamp(2.4rem,4.5vw,4.5rem);height:100%;overflow-y:auto;padding:var(--page-pad-y) var(--page-pad-x);border-bottom:0;scrollbar-width:thin}
+      .collaboration-page{padding-bottom:clamp(1rem,1.8vw,1.75rem)}
+      .page::-webkit-scrollbar{width:6px}
+      .page::-webkit-scrollbar-thumb{background:var(--line)}
+      .about-page{position:relative;min-height:100%;display:flex;flex-direction:column;overflow:hidden}
+      .about-page:after{content:"";position:absolute;top:0;right:calc(var(--page-pad-x) + var(--side-w));bottom:0;width:1px;background:var(--line);pointer-events:none}
+      .about-page .about-layout{flex:1;min-height:0}
+      .about-page .news-panel{display:flex;flex-direction:column;min-height:0;height:100%}
+      .about-page .news-list{flex:1;height:auto;min-height:0}
+      .service-page .practice{position:relative;min-height:100%;margin-right:calc(-1 * var(--page-pad-x));margin-left:calc(-1 * var(--page-pad-x))}
+      .service-page .practice:before,.service-page .practice:after{content:"";position:absolute;top:calc(-1 * var(--page-pad-y));bottom:calc(-1 * var(--page-pad-y));width:1px;background:var(--line);pointer-events:none}
+      .service-page .practice:before{left:33.333%}
+      .service-page .practice:after{left:66.666%}
+      .service-page .service-column{padding-right:clamp(1.4rem,2.5vw,2.5rem);padding-left:clamp(1.4rem,2.5vw,2.5rem)}
+      .service-page .service-column:first-child{padding-left:clamp(1.4rem,2.5vw,2.5rem)}
+      .service-page .service-column:last-child{padding-right:clamp(1.4rem,2.5vw,2.5rem)}
+      .service-page .service-column+.service-column{border-left:0}
+
+      .page-dots{position:fixed;right:clamp(.8rem,1.6vw,1.6rem);top:50%;transform:translateY(-50%);z-index:25;display:flex;flex-direction:column;gap:.65rem}
+      .page-dots button{width:8px;height:8px;padding:0;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+      .page-dots button.active{background:var(--pink);border-color:var(--pink);transform:scale(1.3)}
+    }
+
+    @media(min-width:1200px){
+      .research-heading{grid-template-rows:auto 4.32em}
+    }
+
+    @media(min-width:1400px){
+      .research-heading{grid-template-rows:auto 3.24em}
+    }
+
+    @media(min-width:1600px){
+      :root{--side-w:clamp(360px,26vw,480px);--nav-h:72px}
+      .page{--page-pad-x:clamp(2.4rem,4vw,6rem)}
+    }
+
+    /* ---------- Mobile & tablet (below the paged-desktop breakpoint) ---------- */
+    @media(max-width:1023px){
+      .page-dots{display:none}
+
+      /* generous, thumb-friendly nav */
+      .site-nav{padding:0 clamp(1rem,4vw,1.75rem)}
+      .brand{letter-spacing:.08em}
+
+      .page{padding:clamp(2.4rem,9vw,3.5rem) clamp(1.25rem,5vw,2.25rem)}
+      .section-label{margin-bottom:1.8rem}
+
+      /* single-column reading order for every grid below desktop width */
+      .about-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;grid-template-areas:"about-title" "intro" "news-title" "news";gap:0}
+      .about-intro{padding-right:0;margin-bottom:2.5rem}
+      .news-heading{padding-left:0;margin-bottom:1.8rem}
+      .news-panel{padding:0;border-left:0}
+      .research-grid{grid-template-columns:1fr;grid-auto-rows:auto;border-left:0}
+      .research-card{height:auto;border-left:1px solid var(--line);min-height:0;padding:1.3rem 1.4rem}
+      .research-heading{grid-template-rows:auto auto;gap:.8rem;margin-bottom:.35rem}
+      .featured{grid-template-columns:1fr}
+      .project{aspect-ratio:auto;min-height:0}
+      .project-visual{flex:none;height:clamp(180px,55vw,300px)}
+      .practice{grid-template-columns:1fr}
+      .service-column{padding:1.8rem 0 0;margin-top:1.8rem}
+      .service-column:first-child{padding-top:0;margin-top:0}
+      .service-column+.service-column{border-left:0;border-top:1px solid var(--line)}
+      .service-column:not(:last-child) .mini-list li{grid-template-columns:1fr;gap:.35rem}
+      .collaboration-page{padding-bottom:1rem}
+      .site-footer{margin-top:3rem}
+
+      /* publications: clearer stacked card instead of a cramped grid */
+      .pub{grid-template-columns:1fr;gap:.4rem;padding:1.15rem 0}
+      .pub-year{order:-1}
+      .pub-venue{text-align:left;order:2;margin-top:.15rem}
+
+    }
+
+    @media(max-width:767px){
+      .nav-toggle{display:flex}
+      .nav-links{position:fixed;top:var(--nav-h);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:.3rem clamp(1rem,5vw,1.75rem) .6rem;background:rgba(7,53,181,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;box-shadow:0 12px 24px rgba(4,25,90,.35)}
+      .nav-links.open{opacity:1;transform:translateY(0);pointer-events:auto}
+      .nav-links a{padding:.95rem .1rem;border-bottom:1px solid var(--line);letter-spacing:.08em}
+      .nav-links a:last-child{border-bottom:0}
+      .nav-links a.active:after{display:none}
+    }
+
+    @media(max-width:600px){
+      .identity{padding-top:1.7rem;padding-bottom:2rem}
+      .portrait{max-width:none;aspect-ratio:1}
+      .meta-row{grid-template-columns:4.4rem 1fr}
+      .chip{width:2.75rem;height:2.75rem}
+
+      .page{padding-left:1.15rem;padding-right:1.15rem}
+      .collab-lede{margin-bottom:2rem}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important}
+      .pages{transition:none!important}
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="brand" href="#about" data-nav="about">SHUHAO MA <i>●</i></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" data-nav="about">About Me</a>
+      <a href="#research" data-nav="research">Research</a>
+      <a href="#publications" data-nav="publications">Publications</a>
+      <a href="#service" data-nav="service">Service</a>
+      <a href="#collaboration" data-nav="collaboration">Collaboration</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="shell">
+    <aside class="identity" aria-label="Personal information">
+      <div class="identity-inner">
+        <img class="portrait" src="assets/images/portrait.jpg" alt="Portrait of Shuhao Ma">
+        <h1>Shuhao Ma, PhD</h1>
+        <p class="role">HCI and Design Researcher</p>
+        <div class="meta">
+          <div class="meta-row"><span>Position</span><div>Lecturer in Computer Science, Northumbria University</div></div>
+          <div class="meta-row"><span>Location</span><div>Newcastle upon Tyne, UK</div></div>
+          <div class="meta-row"><span>Email</span><div><a href="mailto:shuhao.ma@northumbria.ac.uk">shuhao.ma@northumbria.ac.uk</a></div></div>
+        </div>
+        <div class="contact" aria-label="Contact and profiles">
+          <a class="chip" href="https://scholar.google.com/citations?user=2b5qA90AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9L12 4l10 5-10 5L2 9Z"/><path d="M6 11v4.3c0 1.5 2.7 3.2 6 3.2s6-1.7 6-3.2V11"/><path d="M22 9v6.5"/></svg>
+          </a>
+          <a class="chip" href="https://www.linkedin.com/in/shuhaoma" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="7.5" cy="7.3" r=".4" fill="currentColor" stroke="none"/><line x1="7.5" y1="10.6" x2="7.5" y2="17"/><path d="M11.5 17v-4a2.5 2.5 0 0 1 5 0v4"/><line x1="11.5" y1="10.6" x2="11.5" y2="17"/></svg>
+          </a>
+          <a class="chip" href="https://bsky.app/profile/shuhaoma.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky" title="Bluesky">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9c-1.4-2.7-4.6-4.6-6.7-3.3C3.4 6.9 4.3 10.4 8 12c-3.7 1.6-4.6 5.1-2.7 6.3 2.1 1.3 5.3-.6 6.7-3.3 1.4 2.7 4.6 4.6 6.7 3.3 1.9-1.2 1-4.7-2.7-6.3 3.7-1.6 4.6-5.1 2.7-6.3-2.1-1.3-5.3.6-6.7 3.3Z"/></svg>
+          </a>
+          <a class="chip" href="https://www.researchgate.net/profile/Shuhao-Ma" target="_blank" rel="noopener" aria-label="ResearchGate" title="ResearchGate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6.5" r="2"/><circle cx="18" cy="6.5" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.6 8L11 16.3M16.4 8L13 16.3M8 6.5h8"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content" id="pager">
+      <div class="pages" id="pages">
+
+        <section class="page about-page" id="about" aria-labelledby="about-title">
+          <div class="about-layout">
+            <div class="section-label about-title" id="about-title">About me</div>
+            <div class="about-intro">
+              <h2 class="greeting"><span lang="zh-CN">你好</span> / <span lang="pt">Olá</span> / <span lang="en">Hi</span></h2>
+              <div class="statement">
+                <p>I am a Lecturer in Computer Science at Northumbria University. My research lies at the intersection of critical computing, design politics, speculative design, and service design. I am particularly interested in the labour embedded in technological design, citizen participation in shaping technological futures, and design’s capacity to engage with real-world challenges.</p>
+                <p>I am currently based in the United Kingdom, with research experience spanning Portugal, the United States, and China. I hold a PhD in Digital Media (HCI) from Universidade de Lisboa, completed with Distinction and Honour (summa cum laude), and was affiliated with CMU/HCII through CMU Portugal. Before beginning my PhD, I trained and worked as a service and interaction designer in China. Across these contexts, my work on labour, inclusion, sustainability, and education has shaped an interdisciplinary, context-sensitive approach combining critical inquiry with participatory and speculative design.</p>
+                <p class="statement-highlight">My research mission is to expand the capacity of HCI and design to imagine, negotiate, and build more just and sustainable technological futures.</p>
+              </div>
+            </div>
+
+            <h3 class="section-label news-heading" id="news-title">Latest News</h3>
+            <aside class="news-panel" aria-labelledby="news-title">
+              <div class="news-list">
+                <article class="news-item"><time datetime="2026-08">August 2026</time><p>Happy to share that I will join Northumbria University as a tenure-track Lecturer in Computer Science this fall.</p></article>
+                <article class="news-item"><time datetime="2026-07">July 2026</time><p>Attended the First Interactive Health Conference 2026 in Porto, Spain.</p></article>
+                <article class="news-item"><time datetime="2026-06-02">2 June 2026</time><p>Successfully defended my PhD thesis and was awarded a PhD with Distinction and Honour (summa cum laude).</p></article>
+                <article class="news-item"><time datetime="2026-04">April 2026</time><p>Attended CHI 2026 in Barcelona, Spain, and presented a paper on worker-centered design.</p></article>
+                <article class="news-item"><time datetime="2026-01">January 2026</time><p>Served as an Associate Chair for the first time at DIS 2026, in the Critical Computing and Design Theory subcommittee.</p></article>
+                <article class="news-item"><time datetime="2025-12">December 2025</time><p>Joined Sustainable Interaction Design as a Research Assistant, funded by Erasmus+.</p></article>
+                <article class="news-item"><time datetime="2025-10-18">18 October 2025</time><p>Attended CSCW 2025 in Bergen, Norway, and presented our paper on Speculating Migrant Worlds on behalf of all co-authors.</p></article>
+                <article class="news-item"><time datetime="2025-09">September 2025</time><p>Served as an Associate Chair for the first time at CHI 2026, in the Understanding People subcommittee.</p></article>
+                <article class="news-item"><time datetime="2025-07-05">5–9 July 2025</time><p>Attended DIS 2025 in Madeira, Portugal, served as Zine Chair, and chaired the session Designing for Specific User Groups.</p></article>
+                <article class="news-item"><time datetime="2025-04-26">26 April–1 May 2025</time><p>Attended CHI 2025 in Yokohama, Japan, and presented a paper on speculative job design in the session Workplace Interactions and Wellbeing.</p></article>
+                <article class="news-item"><time datetime="2024-10">October 2024</time><p>Began a visiting research stay at the Human-Computer Interaction Institute, Carnegie Mellon University, in Pittsburgh, USA, collaborating with John Zimmerman.</p></article>
+                <article class="news-item"><time datetime="2024-07-01">1–5 July 2024</time><p>Attended DIS 2024 in Copenhagen, Denmark, and presented a paper on the role of platform designers in worker issues in the session Design Politics and Ethics.</p></article>
+                <article class="news-item"><time datetime="2024-07-01">1 July 2024</time><p>Participated in the DIS 2024 Doctoral Consortium, sharing my PhD project on worker-centered design.</p></article>
+                <article class="news-item"><time datetime="2023-10-09">9–13 October 2023</time><p>Attended IASDR 2023 in Milan, Italy, and presented a paper on Design and Labor in the session Theoretical Positions and Explorations.</p></article>
+                <article class="news-item"><time datetime="2023-07-10">10–14 July 2023</time><p>Attended DIS 2023 in Pittsburgh, USA, and presented a paper on gig worker–centered design opportunities in the session Worker-Centered Design and Resistance.</p></article>
+                <article class="news-item"><time datetime="2022-06-25">25 June–3 July 2022</time><p>Attended DRS 2022 in Bilbao, Spain, and participated in the PhD event.</p></article>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" id="research" aria-labelledby="research-title">
+          <div class="section-label" id="research-title">Research areas</div>
+          <div class="research-grid">
+            <article class="research-card"><div class="research-heading"><span class="num">01</span><h3>Labour Design</h3></div><p>An examination of how design reshapes labour and reconfigures value, agency, and responsibility, connecting labour studies and political economy to inform technological alternatives across diverse domains.</p></article>
+            <article class="research-card"><div class="research-heading"><span class="num">02</span><h3>Research through Design</h3></div><p>A practice-led approach combining participatory, speculative, and interaction design practices to generate situated knowledge and develop concepts and methods grounded in real world.</p></article>
+            <article class="research-card"><div class="research-heading"><span class="num">03</span><h3>Emerging Technologies, Social Justice &amp; Sustainability</h3></div><p>A critical investigation of how AI, automation, and other emerging technologies reshape social and economic relations, with attention to citizen participation, social justice, and environmental sustainability.</p></article>
+          </div>
+          <div class="section-label featured-label">Featured projects</div>
+          <div class="featured">
+            <article class="project"><div class="project-visual has-image"><img src="assets/images/worker-centered-design.jpg" alt="Courier workers in a shopping centre"></div><h3>Worker-Centered Design</h3><div class="project-meta">2021–2026 · CMU Portugal</div></article>
+            <article class="project"><div class="project-visual has-image"><img src="assets/images/sustainable-interaction-design.png" alt="Social Justice in Sustainable Interaction Design project presentation"></div><h3>Sustainable Interaction Design</h3><div class="project-meta">2025–2026 · Erasmus+</div></article>
+            <article class="project"><div class="project-visual has-image memex-image"><img src="assets/images/memex.jpg" alt="Presenting the MEMEX project"></div><h3>MEMEX</h3><div class="project-meta">2022–2023 · EU2020</div></article>
+          </div>
+        </section>
+
+        <section class="page" id="publications" aria-labelledby="publications-title">
+          <div class="section-label" id="publications-title">Selected publications</div>
+          <div class="pub-list">
+            <article class="pub"><div class="pub-year">2026</div><div><p class="pub-title">Revisiting Worker-Centered Design: Tensions, Blind Spots, and Action Spaces</p><p class="pub-authors"><strong>Shuhao Ma</strong>, John Zimmerman, Valentina Nisi, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3772318.3791128" target="_blank" rel="noopener">CHI ↗</a></div></article>
+            <article class="pub"><div class="pub-year">2025</div><div><p class="pub-title">Speculating Migrant Possible Worlds through Magic Machines</p><p class="pub-authors">Valentina Nisi, Paulo Bala, Vanessa Cesário, <strong>Shuhao Ma</strong>, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3757505" target="_blank" rel="noopener">CSCW ↗</a></div></article>
+            <article class="pub"><div class="pub-year">2025</div><div><p class="pub-title">Speculative Job Design: Probing Alternative Opportunities for Gig Workers in an Automated Future</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Zhiming Liu, Valentina Nisi, Sarah E. Fox, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3706598.3713885" target="_blank" rel="noopener">CHI ↗</a></div></article>
+            <article class="pub"><div class="pub-year">2024</div><div><p class="pub-title">“My Sense of Morality Leads to My Suffering, Battling, and Arguing”: The Role of Platform Designers in (Un)Deciding Gig Worker Issues</p><p class="pub-authors"><strong>Shuhao Ma</strong>, John Zimmerman, Sarah Fox, Valentina Nisi, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3643834.3660713" target="_blank" rel="noopener">DIS ↗</a></div></article>
+            <article class="pub"><div class="pub-year">2024</div><div><p class="pub-title">Advancing HCI and Design Methods to Empower Gig Workers</p><p class="pub-authors"><strong>Shuhao Ma</strong></p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3656156.3665123" target="_blank" rel="noopener">DIS DC ↗</a></div></article>
+            <article class="pub"><div class="pub-year">2023</div><div><p class="pub-title">Uncovering Gig Worker-Centered Design Opportunities in Food Delivery Work</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Paulo Bala, Valentina Nisi, John Zimmerman, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3563657.3596123" target="_blank" rel="noopener">DIS ↗</a></div></article>
+            <article class="pub"><div class="pub-year">2023</div><div><p class="pub-title">Mapping the Research Landscape of Gig Work for Design on Labour Research</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Valentina Nisi, John Zimmerman, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.21606/iasdr.2023.473" target="_blank" rel="noopener">IASDR ↗</a></div></article>
+          </div>
+          <p class="pub-note"><a href="https://scholar.google.com/citations?user=2b5qA90AAAAJ" target="_blank" rel="noopener">Full list available through Google Scholar ↗</a></p>
+        </section>
+
+        <section class="page service-page" id="service" aria-label="Service">
+          <div class="practice">
+            <div class="service-column"><h2>Previous experience</h2><ul class="mini-list"><li><time>Sep 2020 – Sep 2026</time><span><strong>Research Fellow</strong><br>Interactive Technologies Institute, University of Lisbon<br>Lisbon, Portugal</span></li><li><time>Oct 2024 – Mar 2025</time><span><strong>Visiting Researcher</strong><br>Human-Computer Interaction Institute, Carnegie Mellon University<br>Pittsburgh, USA</span></li><li><time>Aug 2020 – Jul 2021</time><span><strong>Teaching Assistant</strong><br>CIEE Office, East China Normal University<br>Shanghai, China</span></li><li><time>Jun 2018 – Aug 2018</time><span><strong>Interaction Designer Intern</strong><br>WeChat Group, Tencent<br>Guangzhou, China</span></li><li><time>Oct 2017 – Mar 2018</time><span><strong>UX Product Manager Intern</strong><br>PingAn Technology<br>Shanghai, China</span></li><li><time>Nov 2016 – Jul 2020</time><span><strong>Research Assistant</strong><br>Tongji Design for Social Innovation and Sustainability Lab<br>Shanghai, China</span></li></ul></div>
+            <div class="service-column"><h2>Teaching</h2><ul class="mini-list"><li><time>June 2026</time><span>Ethics and Justice in Sustainable Interaction Design · Guest Lecturer, SID Summer School · Politecnico di Milano</span></li><li><time>2026</time><span>Digital Service Innovation · Master's · University of Lisbon</span></li><li><time>2021</time><span>Environmental Ethics · Bachelor's · CIEE Shanghai, ECNU</span></li><li><time>2021</time><span>Sustainability and Anthropocene · Bachelor's · CIEE Shanghai, ECNU</span></li><li><time>2020</time><span>Sustainability and Anthropocene · Bachelor's · CIEE Shanghai, ECNU</span></li><li><time>2019</time><span>Info and Data Visualization · Master's · Tongji University</span></li></ul></div>
+            <div class="service-column"><h2>Community</h2>
+              <section class="service-group"><h3>Paper review</h3><ul class="mini-list community-list"><li>ACM CSCW · 2024, 2025</li><li>ACM DIS · 2024*, 2025***, 2026*</li><li>ACM CHI · 2024*, 2025**, 2026*</li><li>CHI Italy Pictorial · 2025</li><li>The Journal of Collaborative Computing and Work Practices · 2025</li><li>IASDR · 2021, 2023</li><li>ADMC · 2022</li></ul><p class="service-note">Each * denotes one Special Recognition for Outstanding Review.</p></section>
+              <section class="service-group"><h3>Program committee</h3><ul class="mini-list community-list"><li>TEI Student Volunteer Chair · 2027</li><li>DIS Paper Associate Chair · Critical Computing and Design Theory · 2026</li><li>CHI Paper Associate Chair · Understanding People · 2026</li><li>CHI Late-Break Work Associate Chair · 2025</li><li>DIS Zine Chair · 2025</li><li>CSCW Associate Chair · October Cycle 2025</li><li>CSCW Associate Chair · July Cycle 2025</li></ul></section>
+              <section class="service-group"><h3>Other activities</h3><ul class="mini-list community-list"><li>DIS Session Chair · Designing for Specific User Groups · 2025</li><li>DIS Doctoral Consortium · 2024</li><li>DIS Student Volunteer T-Shirt Designer · 2024</li><li>Design Research Society Conference PhD Event · 2022</li></ul></section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page collaboration-page" id="collaboration" aria-labelledby="collaboration-title">
+          <div class="section-label" id="collaboration-title">Collaboration</div>
+          <p class="collab-lede">Interested in labor, technology, justice, or building better design methods? I'd like to hear from you.</p>
+          <div class="collab-grid">
+            <ul>
+              <li>Happy to advise undergraduate and master’s dissertations on the future of work, citizen participation, critical and speculative design, social justice, and sustainability.</li>
+              <li>Interdisciplinary supervision at Northumbria and cross-institutional co-supervision are welcome at both master’s and PhD levels.</li>
+              <li>Keen to collaborate on workshops, co-design partnerships, and community-engaged research.</li>
+              <li>Available for invited talks, seminars, and discussions related to my research.</li>
+            </ul>
+          </div>
+          <div class="collab-cta"><a href="mailto:shuhao.ma@northumbria.ac.uk">Start a conversation ↗</a></div>
+          <footer class="site-footer">Copyright Shuhao Ma 2026</footer>
+        </section>
+
+      </div>
+    </div>
+
+    <div class="page-dots" id="pageDots" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    (function(){
+      var PAGE_IDS = ['about','research','publications','service','collaboration'];
+      var pagesEl = document.getElementById('pages');
+      var contentEl = document.getElementById('pager');
+      var dotsEl = document.getElementById('pageDots');
+      var navLinksEl = document.getElementById('navLinks');
+      var navToggleEl = document.getElementById('navToggle');
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+      var currentIndex = 0;
+      var animating = false;
+      var ANIM_MS = 720;
+      var COOLDOWN_MS = 1000;    // absorbs trackpad momentum after a page flip
+      var WHEEL_THRESHOLD = 40; // light second gesture after boundary confirmation
+      var wheelAccum = 0;
+      var wheelResetTimer = null;
+      var boundaryIntentDir = 0;
+      var boundaryIntentReady = false;
+      var boundaryIntentTimer = null;
+      var lastNavAt = 0;
+
+      function isDesktop(){ return window.matchMedia('(min-width:1024px)').matches; }
+
+      function openMenu(){ navLinksEl.classList.add('open'); navToggleEl.setAttribute('aria-expanded','true'); }
+      function closeMenu(){ navLinksEl.classList.remove('open'); navToggleEl.setAttribute('aria-expanded','false'); }
+      if(navToggleEl){
+        navToggleEl.addEventListener('click', function(){
+          if(navLinksEl.classList.contains('open')) closeMenu(); else openMenu();
+        });
+        document.addEventListener('click', function(e){
+          if(!navLinksEl.classList.contains('open')) return;
+          if(navLinksEl.contains(e.target) || navToggleEl.contains(e.target)) return;
+          closeMenu();
+        });
+        window.addEventListener('keydown', function(e){
+          if(e.key === 'Escape') closeMenu();
+        });
+      }
+
+      // build dots
+      PAGE_IDS.forEach(function(id, i){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Go to ' + id);
+        if(i === 0) b.classList.add('active');
+        b.addEventListener('click', function(){ goTo(i); });
+        dotsEl.appendChild(b);
+      });
+      var dotButtons = Array.prototype.slice.call(dotsEl.children);
+
+      function updateActive(){
+        navLinks.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('data-nav') === PAGE_IDS[currentIndex]);
+        });
+        dotButtons.forEach(function(d, i){ d.classList.toggle('active', i === currentIndex); });
+      }
+
+      function applyTransform(){
+        if(isDesktop()){
+          pagesEl.style.transform = 'translateY(-' + (currentIndex * 100) + '%)';
+        } else {
+          pagesEl.style.transform = '';
+        }
+      }
+
+      function clearBoundaryIntent(){
+        boundaryIntentDir = 0;
+        boundaryIntentReady = false;
+        clearTimeout(boundaryIntentTimer);
+      }
+
+      function goTo(index){
+        index = Math.max(0, Math.min(PAGE_IDS.length - 1, index));
+        currentIndex = index;
+        wheelAccum = 0;
+        clearBoundaryIntent();
+        lastNavAt = Date.now();
+        var target = document.getElementById(PAGE_IDS[index]);
+        if(target){
+          target.scrollTop = 0;
+          var nestedScrollers = target.querySelectorAll('.news-list');
+          nestedScrollers.forEach(function(scroller){ scroller.scrollTop = 0; });
+        }
+        if(isDesktop()){
+          applyTransform();
+        } else {
+          if(target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+        updateActive();
+      }
+
+      function navigateDelta(dir){
+        var next = currentIndex + dir;
+        if(next < 0 || next > PAGE_IDS.length - 1) return;
+        animating = true;
+        goTo(next);
+        window.setTimeout(function(){ animating = false; }, ANIM_MS);
+      }
+
+      navLinks.forEach(function(a){
+        a.addEventListener('click', function(e){
+          var id = a.getAttribute('data-nav');
+          var idx = PAGE_IDS.indexOf(id);
+          if(idx === -1) return;
+          wheelAccum = 0;
+          if(isDesktop()){
+            e.preventDefault();
+            goTo(idx);
+          }
+          // on mobile let the native anchor scroll happen
+          closeMenu();
+        });
+      });
+
+      function activePageEl(){
+        return document.getElementById(PAGE_IDS[currentIndex]);
+      }
+
+      function canFlip(){
+        return !animating && (Date.now() - lastNavAt) >= COOLDOWN_MS;
+      }
+
+      function flip(dir){
+        lastNavAt = Date.now();
+        wheelAccum = 0;
+        clearBoundaryIntent();
+        navigateDelta(dir);
+      }
+
+      // Wheel/trackpad uses a two-step boundary gesture. The gesture that reaches a
+      // page edge only arms navigation; the user must release and make a separate
+      // gesture in the same direction before accumulated movement can flip the page.
+      contentEl.addEventListener('wheel', function(e){
+        if(!isDesktop()) return;
+        if(e.target.closest && e.target.closest('.news-list')){
+          wheelAccum = 0;
+          clearBoundaryIntent();
+          return; // keep wheel input inside the Latest News scroller
+        }
+        var el = activePageEl();
+        if(!el) return;
+        var canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight - 2;
+        var canScrollUp = el.scrollTop > 2;
+        var atBoundary = (e.deltaY > 0 && !canScrollDown) || (e.deltaY < 0 && !canScrollUp);
+
+        if(!atBoundary){
+          wheelAccum = 0;
+          clearBoundaryIntent();
+          return; // let the page scroll internally as normal
+        }
+
+        e.preventDefault();
+
+        if(!canFlip()) return;
+        if(Math.abs(e.deltaY) < 3) return; // ignore momentum-tail micro ticks
+
+        var direction = e.deltaY > 0 ? 1 : -1;
+        if(boundaryIntentDir !== direction || !boundaryIntentReady){
+          boundaryIntentDir = direction;
+          boundaryIntentReady = false;
+          wheelAccum = 0;
+          clearTimeout(boundaryIntentTimer);
+          boundaryIntentTimer = setTimeout(function(){
+            boundaryIntentReady = true;
+          }, 220);
+          return;
+        }
+
+        wheelAccum += e.deltaY;
+        clearTimeout(wheelResetTimer);
+        wheelResetTimer = setTimeout(function(){ wheelAccum = 0; }, 220);
+
+        if(Math.abs(wheelAccum) >= WHEEL_THRESHOLD){
+          flip(wheelAccum > 0 ? 1 : -1);
+        }
+      }, { passive: false });
+
+      var touchStartY = null;
+      contentEl.addEventListener('touchstart', function(e){
+        if(!isDesktop()) return;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      contentEl.addEventListener('touchend', function(e){
+        if(!isDesktop() || touchStartY === null) return;
+        var dy = touchStartY - e.changedTouches[0].clientY;
+        touchStartY = null;
+        if(Math.abs(dy) < 80) return;
+        if(!canFlip()) return;
+        var el = activePageEl();
+        if(!el) return;
+        var canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight - 2;
+        var canScrollUp = el.scrollTop > 2;
+        if(dy > 0 && !canScrollDown){ flip(1); }
+        else if(dy < 0 && !canScrollUp){ flip(-1); }
+      }, { passive: true });
+
+      window.addEventListener('keydown', function(e){
+        if(!isDesktop()) return;
+        var tag = (document.activeElement && document.activeElement.tagName) || '';
+        if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+        if(e.key === 'ArrowDown' || e.key === 'PageDown'){
+          e.preventDefault();
+          if(canFlip()) flip(1);
+        } else if(e.key === 'ArrowUp' || e.key === 'PageUp'){
+          e.preventDefault();
+          if(canFlip()) flip(-1);
+        }
+      });
+
+      var resizeTimer;
+      window.addEventListener('resize', function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(applyTransform, 100);
+      });
+
+      // Sync active nav while scrolling on mobile
+      if('IntersectionObserver' in window){
+        var io = new IntersectionObserver(function(entries){
+          if(isDesktop()) return;
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              var idx = PAGE_IDS.indexOf(entry.target.id);
+              if(idx !== -1){ currentIndex = idx; updateActive(); }
+            }
+          });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        PAGE_IDS.forEach(function(id){
+          var el = document.getElementById(id);
+          if(el) io.observe(el);
+        });
+      }
+
+      applyTransform();
+      updateActive();
+    })();
+  </script>
+</body>
+</html>

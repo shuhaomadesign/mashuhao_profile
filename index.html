@@ -455,8 +455,8 @@
       var mobileIndex = 0;
       var animating = false;
       var ANIM_MS = 720;
-      var COOLDOWN_MS = 1000;    // absorbs trackpad momentum after a page flip
-      var WHEEL_THRESHOLD = 40; // light second gesture after boundary confirmation
+      var COOLDOWN_MS = 650;    // absorbs momentum without making the next page feel locked
+      var WHEEL_THRESHOLD = 22; // short, deliberate second gesture after boundary confirmation
       var wheelAccum = 0;
       var wheelResetTimer = null;
       var boundaryIntentDir = 0;
@@ -615,11 +615,11 @@
           mobileBoundaryDir = dir;
           mobileBoundaryArmed = false;
           mobileWheelAccum = 0;
-          mobileWheelReleaseTimer = setTimeout(function(){ mobileBoundaryArmed = true; }, 180);
+          mobileWheelReleaseTimer = setTimeout(function(){ mobileBoundaryArmed = true; }, 110);
           return;
         }
         mobileWheelAccum += Math.abs(e.deltaY);
-        mobileWheelReleaseTimer = setTimeout(function(){ mobileWheelAccum = 0; }, 180);
+        mobileWheelReleaseTimer = setTimeout(function(){ mobileWheelAccum = 0; }, 260);
         if(mobileWheelAccum >= WHEEL_THRESHOLD) mobileFlip(dir);
       }, { passive:false });
 
@@ -666,7 +666,7 @@
         mobileTouchStartY = null;
         mobileTouchScroller = null;
         mobileTouchStartedAtBoundary = false;
-        if(Math.abs(dy) < 55) return;
+        if(Math.abs(dy) < 38) return;
         var dir = dy > 0 ? 1 : -1;
         window.setTimeout(function(){
           var atBoundary = dir > 0
@@ -738,13 +738,13 @@
           clearTimeout(boundaryIntentTimer);
           boundaryIntentTimer = setTimeout(function(){
             boundaryIntentReady = true;
-          }, 220);
+          }, 120);
           return;
         }
 
         wheelAccum += e.deltaY;
         clearTimeout(wheelResetTimer);
-        wheelResetTimer = setTimeout(function(){ wheelAccum = 0; }, 220);
+        wheelResetTimer = setTimeout(function(){ wheelAccum = 0; }, 260);
 
         if(Math.abs(wheelAccum) >= WHEEL_THRESHOLD){
           flip(wheelAccum > 0 ? 1 : -1);
@@ -761,7 +761,7 @@
         if(!isDesktop() || touchStartY === null) return;
         var dy = touchStartY - e.changedTouches[0].clientY;
         touchStartY = null;
-        if(Math.abs(dy) < 80) return;
+        if(Math.abs(dy) < 55) return;
         if(!canFlip()) return;
         var el = activePageEl();
         if(!el) return;

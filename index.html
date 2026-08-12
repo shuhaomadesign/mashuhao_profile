@@ -252,6 +252,14 @@
       .activities-toggle{display:inline-block;margin:1rem 0 0;padding:0;border:0;background:transparent;color:var(--pink);font:inherit;font-size:var(--type-body);line-height:1.2;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
     }
 
+    @media(min-width:768px) and (max-width:1023px){
+      .research-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;border-left:1px solid var(--line)}
+      .research-card{height:100%;border-left:0}
+      .featured{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .project{height:100%}
+      .project-visual{height:clamp(190px,27vw,260px)}
+    }
+
     @media(max-width:767px){
       .identity{padding:clamp(1rem,3vh,1.8rem) 1.15rem}
       .identity-inner{display:grid;height:100%;grid-template-columns:1fr;grid-template-rows:auto auto auto auto;grid-template-areas:"portrait" "heading" "meta" "contact";align-content:space-evenly;justify-items:stretch}

@@ -277,6 +277,8 @@
 
     @media(min-width:601px) and (max-width:767px){
       .featured{gap:0;background:transparent}
+      .featured:after{content:"";display:none;min-height:clamp(180px,36vw,260px);background:radial-gradient(circle at 22% 28%,transparent 0 34px,var(--pink) 35px 36px,transparent 37px),radial-gradient(circle at 76% 18%,transparent 0 49px,var(--pink) 50px 51px,transparent 52px),repeating-linear-gradient(135deg,transparent 0 20px,rgba(255,255,255,.08) 20px 21px)}
+      .featured:has(>.project:nth-child(odd):last-child):after{display:block}
       .project{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
       .project:nth-child(2n){border-right:0}
       .project:nth-child(2n+1):nth-last-child(-n+2),.project:nth-child(2n+1):nth-last-child(-n+2)~.project{border-bottom:0}

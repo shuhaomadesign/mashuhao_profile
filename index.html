@@ -231,12 +231,12 @@
       html,body{height:100%;overflow:hidden}
       .shell{position:fixed;top:var(--nav-h);right:0;bottom:0;left:0;max-width:none;overflow:hidden}
       .identity{position:absolute;inset:0;height:100%;overflow:hidden;padding:clamp(1.25rem,4vh,2.5rem) clamp(1.25rem,5vw,3rem);transition:transform .55s cubic-bezier(.65,0,.2,1)}
-      .identity-inner{width:100%;height:100%;display:grid;grid-template-columns:minmax(180px,32%) minmax(0,1fr);grid-template-rows:auto auto 1fr auto;grid-template-areas:"portrait name" "portrait role" "portrait meta" "portrait contact";column-gap:clamp(2rem,6vw,4.5rem);align-content:center;align-items:center}
+      .identity-inner{width:100%;height:100%;display:grid;grid-template-columns:minmax(180px,32%) minmax(0,1fr);grid-template-rows:repeat(4,auto);grid-template-areas:"portrait name" "portrait role" "portrait meta" "portrait contact";column-gap:clamp(2rem,6vw,4.5rem);align-content:center;align-items:center}
       .identity .portrait{grid-area:portrait;width:min(100%,280px);margin:auto}
       .identity h1{grid-area:name;margin:0;text-align:left}
       .identity .role{grid-area:role;margin:.45rem 0 0;text-align:left}
-      .identity .meta{grid-area:meta;width:100%;margin-top:1rem;padding:1rem 0;align-self:center}
-      .identity .contact{grid-area:contact;justify-content:flex-start;margin-top:1rem}
+      .identity .meta{grid-area:meta;width:100%;margin-top:clamp(1.25rem,3vh,2rem);padding:1rem 0;align-self:center}
+      .identity .contact{grid-area:contact;justify-content:flex-start;margin-top:clamp(1.25rem,3vh,2rem)}
       .identity::-webkit-scrollbar,.page::-webkit-scrollbar{width:4px}
       .identity::-webkit-scrollbar-thumb,.page::-webkit-scrollbar-thumb{background:var(--line)}
       .content{position:absolute;inset:0;height:100%;overflow:hidden;transform:translateY(100%);transition:transform .55s cubic-bezier(.65,0,.2,1)}

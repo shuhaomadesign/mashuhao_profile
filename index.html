@@ -103,11 +103,12 @@
 
     /* Publications page */
     .pub-list{border-top:1px solid var(--line)}
-    .pub{display:grid;grid-template-columns:4rem minmax(0,1fr) 7rem;gap:1.1rem;padding:1.1rem 0;border-bottom:1px solid var(--line);align-items:start}
-    .pub-year{font-size:var(--type-body);font-weight:750;line-height:1.4;color:var(--pink)}
+    .pub{display:grid;grid-template-columns:4rem minmax(0,1fr) 7rem;grid-template-areas:"year body venue";gap:1.1rem;padding:1.1rem 0;border-bottom:1px solid var(--line);align-items:start}
+    .pub-year{grid-area:year;font-size:var(--type-body);font-weight:750;line-height:1.4;color:var(--pink)}
+    .pub>div:nth-child(2){grid-area:body}
     .pub-title{margin:0 0 .35rem;font-size:var(--type-body);font-weight:680;line-height:1.35}
     .pub-authors{margin:0;font-size:var(--type-body);line-height:1.45}
-    .pub-venue{text-align:right;font-size:var(--type-body);font-weight:800;letter-spacing:.06em;text-transform:lowercase}
+    .pub-venue{grid-area:venue;text-align:right;font-size:var(--type-body);font-weight:800;letter-spacing:.06em;text-transform:lowercase}
     .pub-venue a{text-underline-offset:3px}
     .pub-note{margin:1.2rem 0 0;font-size:var(--type-small)}
 
@@ -221,9 +222,8 @@
       .site-footer{margin-top:3rem}
 
       /* publications: clearer stacked card instead of a cramped grid */
-      .pub{grid-template-columns:1fr;gap:.4rem;padding:1.15rem 0}
-      .pub-year{order:-1}
-      .pub-venue{text-align:left;order:2;margin-top:.15rem}
+      .pub{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"body body" "year venue";column-gap:1rem;row-gap:.55rem;padding:1.15rem 0}
+      .pub-venue{justify-self:end;text-align:right;margin-top:0}
 
       /* card paging throughout the full single-column range */
       html,body{height:100%;overflow:hidden}
@@ -365,15 +365,15 @@
         <section class="page" id="publications" aria-labelledby="publications-title">
           <div class="section-label" id="publications-title">Selected publications</div>
           <div class="pub-list">
-            <article class="pub"><div class="pub-year">2026</div><div><p class="pub-title">Revisiting Worker-Centered Design: Tensions, Blind Spots, and Action Spaces</p><p class="pub-authors"><strong>Shuhao Ma</strong>, John Zimmerman, Valentina Nisi, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3772318.3791128" target="_blank" rel="noopener">CHI ↗</a></div></article>
-            <article class="pub"><div class="pub-year">2025</div><div><p class="pub-title">Speculating Migrant Possible Worlds through Magic Machines</p><p class="pub-authors">Valentina Nisi, Paulo Bala, Vanessa Cesário, <strong>Shuhao Ma</strong>, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3757505" target="_blank" rel="noopener">CSCW ↗</a></div></article>
-            <article class="pub"><div class="pub-year">2025</div><div><p class="pub-title">Speculative Job Design: Probing Alternative Opportunities for Gig Workers in an Automated Future</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Zhiming Liu, Valentina Nisi, Sarah E. Fox, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3706598.3713885" target="_blank" rel="noopener">CHI ↗</a></div></article>
-            <article class="pub"><div class="pub-year">2024</div><div><p class="pub-title">“My Sense of Morality Leads to My Suffering, Battling, and Arguing”: The Role of Platform Designers in (Un)Deciding Gig Worker Issues</p><p class="pub-authors"><strong>Shuhao Ma</strong>, John Zimmerman, Sarah Fox, Valentina Nisi, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3643834.3660713" target="_blank" rel="noopener">DIS ↗</a></div></article>
-            <article class="pub"><div class="pub-year">2024</div><div><p class="pub-title">Advancing HCI and Design Methods to Empower Gig Workers</p><p class="pub-authors"><strong>Shuhao Ma</strong></p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3656156.3665123" target="_blank" rel="noopener">DIS DC ↗</a></div></article>
-            <article class="pub"><div class="pub-year">2023</div><div><p class="pub-title">Uncovering Gig Worker-Centered Design Opportunities in Food Delivery Work</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Paulo Bala, Valentina Nisi, John Zimmerman, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3563657.3596123" target="_blank" rel="noopener">DIS ↗</a></div></article>
-            <article class="pub"><div class="pub-year">2023</div><div><p class="pub-title">Mapping the Research Landscape of Gig Work for Design on Labour Research</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Valentina Nisi, John Zimmerman, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.21606/iasdr.2023.473" target="_blank" rel="noopener">IASDR ↗</a></div></article>
+            <article class="pub"><div class="pub-year">2026</div><div><p class="pub-title">Revisiting Worker-Centered Design: Tensions, Blind Spots, and Action Spaces</p><p class="pub-authors"><strong>Shuhao Ma</strong>, John Zimmerman, Valentina Nisi, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3772318.3791128" target="_blank" rel="noopener">CHI</a></div></article>
+            <article class="pub"><div class="pub-year">2025</div><div><p class="pub-title">Speculating Migrant Possible Worlds through Magic Machines</p><p class="pub-authors">Valentina Nisi, Paulo Bala, Vanessa Cesário, <strong>Shuhao Ma</strong>, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3757505" target="_blank" rel="noopener">CSCW</a></div></article>
+            <article class="pub"><div class="pub-year">2025</div><div><p class="pub-title">Speculative Job Design: Probing Alternative Opportunities for Gig Workers in an Automated Future</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Zhiming Liu, Valentina Nisi, Sarah E. Fox, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3706598.3713885" target="_blank" rel="noopener">CHI</a></div></article>
+            <article class="pub"><div class="pub-year">2024</div><div><p class="pub-title">“My Sense of Morality Leads to My Suffering, Battling, and Arguing”: The Role of Platform Designers in (Un)Deciding Gig Worker Issues</p><p class="pub-authors"><strong>Shuhao Ma</strong>, John Zimmerman, Sarah Fox, Valentina Nisi, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3643834.3660713" target="_blank" rel="noopener">DIS</a></div></article>
+            <article class="pub"><div class="pub-year">2024</div><div><p class="pub-title">Advancing HCI and Design Methods to Empower Gig Workers</p><p class="pub-authors"><strong>Shuhao Ma</strong></p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3656156.3665123" target="_blank" rel="noopener">DIS DC</a></div></article>
+            <article class="pub"><div class="pub-year">2023</div><div><p class="pub-title">Uncovering Gig Worker-Centered Design Opportunities in Food Delivery Work</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Paulo Bala, Valentina Nisi, John Zimmerman, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.1145/3563657.3596123" target="_blank" rel="noopener">DIS</a></div></article>
+            <article class="pub"><div class="pub-year">2023</div><div><p class="pub-title">Mapping the Research Landscape of Gig Work for Design on Labour Research</p><p class="pub-authors"><strong>Shuhao Ma</strong>, Valentina Nisi, John Zimmerman, Nuno Jardim Nunes</p></div><div class="pub-venue"><a href="https://doi.org/10.21606/iasdr.2023.473" target="_blank" rel="noopener">IASDR</a></div></article>
           </div>
-          <p class="pub-note"><a href="https://scholar.google.com/citations?user=2b5qA90AAAAJ" target="_blank" rel="noopener">Full list available through Google Scholar ↗</a></p>
+          <p class="pub-note"><a href="https://scholar.google.com/citations?user=2b5qA90AAAAJ" target="_blank" rel="noopener">Full list available through Google Scholar</a></p>
         </section>
 
         <section class="page service-page" id="service" aria-label="Service">
@@ -399,7 +399,7 @@
               <li>Available for invited talks, seminars, and discussions related to my research.</li>
             </ul>
           </div>
-          <div class="collab-cta"><a href="mailto:shuhao.ma@northumbria.ac.uk">Start a conversation ↗</a></div>
+          <div class="collab-cta"><a href="mailto:shuhao.ma@northumbria.ac.uk">Start a conversation</a></div>
           <footer class="site-footer">Copyright Shuhao Ma 2026</footer>
         </section>
 

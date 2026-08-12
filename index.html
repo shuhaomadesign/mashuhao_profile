@@ -231,10 +231,11 @@
       html,body{height:100%;overflow:hidden}
       .shell{position:fixed;top:var(--nav-h);right:0;bottom:0;left:0;max-width:none;overflow:hidden}
       .identity{position:absolute;inset:0;height:100%;overflow:hidden;padding:clamp(1.25rem,4vh,2.5rem) clamp(1.25rem,5vw,3rem);transition:transform .55s cubic-bezier(.65,0,.2,1)}
-      .identity-inner{width:100%;height:100%;display:grid;grid-template-columns:minmax(180px,32%) minmax(0,1fr);grid-template-rows:repeat(4,auto);grid-template-areas:"portrait name" "portrait role" "portrait meta" "portrait contact";column-gap:clamp(2rem,6vw,4.5rem);align-content:center;align-items:center}
+      .identity-inner{width:100%;height:100%;display:grid;grid-template-columns:minmax(180px,32%) minmax(0,1fr);grid-template-rows:repeat(3,auto);grid-template-areas:"portrait heading" "portrait meta" "portrait contact";column-gap:clamp(2rem,6vw,4.5rem);align-content:center;align-items:center}
       .identity .portrait{grid-area:portrait;width:min(100%,280px);margin:auto}
-      .identity h1{grid-area:name;margin:0;text-align:left}
-      .identity .role{grid-area:role;margin:.45rem 0 0;text-align:left}
+      .identity .profile-heading{grid-area:heading}
+      .identity h1{margin:0;text-align:left}
+      .identity .role{margin:.45rem 0 0;text-align:left}
       .identity .meta{grid-area:meta;width:100%;margin-top:clamp(1.25rem,3vh,2rem);padding:1rem 0;align-self:center}
       .identity .contact{grid-area:contact;justify-content:flex-start;margin-top:clamp(1.25rem,3vh,2rem)}
       .identity::-webkit-scrollbar,.page::-webkit-scrollbar{width:4px}
@@ -248,13 +249,15 @@
     }
 
     @media(max-width:767px){
-      .identity{padding:clamp(.8rem,2.5vh,1.4rem) 1.15rem}
-      .identity-inner{display:flex;height:100%;flex-direction:column;justify-content:center;align-items:stretch}
+      .identity{padding:clamp(1rem,3vh,1.8rem) 1.15rem}
+      .identity-inner{display:grid;height:100%;grid-template-columns:1fr;grid-template-rows:auto auto auto auto;grid-template-areas:"portrait" "heading" "meta" "contact";align-content:space-evenly;justify-items:stretch}
       .identity .portrait{width:min(42vw,22vh,165px);margin:0 auto}
-      .identity h1{margin:clamp(.55rem,1.6vh,.9rem) 0 0;text-align:center}
+      .identity .profile-heading{grid-area:heading;align-self:center}
+      .identity h1{margin:0;text-align:center}
       .identity .role{margin:.25rem 0 0;text-align:center;line-height:1.2}
-      .identity .meta{gap:clamp(.35rem,1vh,.65rem);margin-top:clamp(.55rem,1.5vh,.9rem);padding:clamp(.55rem,1.5vh,.85rem) 0;line-height:1.2}
-      .identity .contact{justify-content:center;gap:.5rem;margin-top:clamp(.55rem,1.5vh,.85rem)}
+      .identity .meta{grid-area:meta;width:min(100%,25rem);gap:clamp(.4rem,1.2vh,.75rem);margin:0 auto;padding:clamp(.65rem,1.8vh,1rem) 0;line-height:1.2;align-self:center}
+      .identity .meta-row{grid-template-columns:4.8rem minmax(0,1fr);gap:.65rem;text-align:left}
+      .identity .contact{grid-area:contact;justify-content:center;gap:.5rem;margin:0;align-self:start}
       .identity .chip{width:clamp(2.25rem,5.5vh,2.65rem);height:clamp(2.25rem,5.5vh,2.65rem)}
       .nav-toggle{display:flex}
       .nav-links{position:fixed;top:var(--nav-h);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:.3rem clamp(1rem,5vw,1.75rem) .6rem;background:rgba(7,53,181,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;box-shadow:0 12px 24px rgba(4,25,90,.35)}
@@ -266,7 +269,6 @@
 
     @media(max-width:600px){
       .portrait{max-width:none;aspect-ratio:1}
-      .meta-row{grid-template-columns:4.4rem 1fr}
 
       .page{padding-left:1.15rem;padding-right:1.15rem}
       .collab-lede{margin-bottom:2rem}
@@ -274,11 +276,9 @@
 
     @media(max-width:767px) and (max-height:650px){
       .identity .portrait{width:min(34vw,18vh,120px)}
-      .identity h1{margin-top:.4rem}
       .identity .role{font-size:.95rem}
-      .identity .meta{gap:.25rem;margin-top:.45rem;padding:.45rem 0;font-size:.9rem}
+      .identity .meta{gap:.25rem;padding:.45rem 0;font-size:.9rem}
       .identity .meta-row,.identity .meta-row span:first-child{font-size:.9rem}
-      .identity .contact{margin-top:.45rem}
       .identity .chip{width:2.15rem;height:2.15rem}
     }
 
@@ -307,11 +307,13 @@
     <aside class="identity" id="profile" aria-label="Personal information">
       <div class="identity-inner">
         <img class="portrait" src="assets/images/portrait-optimized.jpg" alt="Portrait of Shuhao Ma" width="560" height="560" fetchpriority="high" decoding="async">
-        <h1>Shuhao Ma, PhD</h1>
-        <p class="role">HCI and Design Researcher</p>
+        <div class="profile-heading">
+          <h1>Shuhao Ma, PhD</h1>
+          <p class="role">HCI and Design Researcher</p>
+        </div>
         <div class="meta">
           <div class="meta-row"><span>Position</span><div>Lecturer in Computer Science</div></div>
-          <div class="meta-row"><span>Affiliation</span><div>School of Computer Science, Northumbria University</div></div>
+          <div class="meta-row"><span>Affiliation</span><div>School of Computer Science,<br>Northumbria University</div></div>
           <div class="meta-row"><span>Location</span><div>Newcastle upon Tyne, UK</div></div>
           <div class="meta-row"><span>Email</span><div><a href="mailto:shuhao.ma@northumbria.ac.uk">shuhao.ma@northumbria.ac.uk</a></div></div>
         </div>

@@ -159,8 +159,8 @@
       .page::-webkit-scrollbar{width:6px}
       .page::-webkit-scrollbar-thumb{background:var(--line)}
       .about-page{position:relative;min-height:100%;display:flex;flex-direction:column;overflow:hidden}
-      .about-page:after{content:"";position:absolute;top:0;right:calc(var(--page-pad-x) + var(--side-w));bottom:0;width:1px;background:var(--line);pointer-events:none}
-      .about-page .about-layout{flex:1;min-height:0}
+      .about-page:after{content:"";position:absolute;top:0;right:var(--side-w);bottom:0;width:1px;background:var(--line);pointer-events:none}
+      .about-page .about-layout{grid-template-columns:minmax(0,1fr) calc(var(--side-w) - var(--page-pad-x));flex:1;min-height:0}
       .about-page .news-panel{display:flex;flex-direction:column;min-height:0;height:100%}
       .about-page .news-list{flex:1;height:auto;min-height:0}
       .service-page .practice{position:relative;min-height:100%;margin-right:calc(-1 * var(--page-pad-x));margin-left:calc(-1 * var(--page-pad-x))}

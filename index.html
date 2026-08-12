@@ -218,8 +218,8 @@
       .service-column:first-child{padding-top:0;margin-top:0}
       .service-column+.service-column{border-left:0;border-top:0}
       .service-column:not(:last-child) .mini-list li{grid-template-columns:1fr;gap:.35rem}
-      .collaboration-page{padding-bottom:1rem}
-      .site-footer{margin-top:3rem}
+      .collaboration-page{padding-bottom:1rem;display:flex;flex-direction:column}
+      .collaboration-page .site-footer{margin-top:auto}
 
       /* publications: clearer stacked card instead of a cramped grid */
       .pub{grid-template-columns:2.8rem max-content minmax(0,1fr);grid-template-areas:"body body body" "year venue .";column-gap:.35rem;row-gap:.55rem;padding:1.15rem 0;min-width:0}

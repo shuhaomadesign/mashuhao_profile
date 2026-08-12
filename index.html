@@ -247,12 +247,14 @@
     @media(min-width:768px) and (max-width:1023px){
       .research-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;border-left:1px solid var(--line)}
       .research-card{height:100%;border-left:0}
-      .featured{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .featured{grid-template-columns:repeat(3,minmax(0,1fr))}
       .project{height:100%}
-      .project-visual{height:clamp(190px,27vw,260px)}
+      .project-visual{height:clamp(170px,20vw,220px)}
     }
 
     @media(max-width:767px){
+      .featured{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .project-visual{height:clamp(180px,36vw,260px)}
       .identity{padding:clamp(1rem,3vh,1.8rem) 1.15rem}
       .identity-inner{display:grid;height:100%;grid-template-columns:1fr;grid-template-rows:auto auto auto auto;grid-template-areas:"portrait" "heading" "meta" "contact";align-content:space-evenly;justify-items:stretch}
       .identity .portrait{width:min(42vw,22vh,165px);margin:0 auto}
@@ -274,6 +276,8 @@
     }
 
     @media(max-width:600px){
+      .featured{grid-template-columns:1fr}
+      .project-visual{height:clamp(180px,55vw,300px)}
       .portrait{max-width:none;aspect-ratio:1}
 
       .page{padding-left:1.15rem;padding-right:1.15rem}

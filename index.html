@@ -466,6 +466,7 @@
       var mobileAnimating = false;
       var mobileBoundaryDir = 0;
       var mobileBoundaryArmed = false;
+      var mobileBoundaryRestTimer = null;
       var mobileTouchStartY = null;
       var mobileTouchScroller = null;
       var mobileTouchStartedAtBoundary = false;
@@ -596,8 +597,33 @@
       }
 
       function clearMobileBoundary(){
+        clearTimeout(mobileBoundaryRestTimer);
         mobileBoundaryDir = 0;
         mobileBoundaryArmed = false;
+      }
+
+      function scheduleMobileBoundary(scroller){
+        clearTimeout(mobileBoundaryRestTimer);
+        if(!isMobilePager() || !hasInternalScroll(scroller)) return;
+        var atTop = scroller.scrollTop <= 2;
+        var atBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2;
+        if(!atTop && !atBottom){
+          mobileBoundaryDir = 0;
+          mobileBoundaryArmed = false;
+          return;
+        }
+        var dir = atBottom ? 1 : -1;
+        mobileBoundaryDir = dir;
+        mobileBoundaryArmed = false;
+        mobileBoundaryRestTimer = window.setTimeout(function(){
+          var stillAtBoundary = dir > 0
+            ? scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2
+            : scroller.scrollTop <= 2;
+          if(stillAtBoundary && scroller === mobileScroller(mobileIndex)){
+            mobileBoundaryDir = dir;
+            mobileBoundaryArmed = true;
+          }
+        }, 180);
       }
 
       function goToMobile(index){
@@ -610,6 +636,7 @@
         if(target){
           target.scrollTop = 0;
           target.querySelectorAll('.news-list').forEach(function(scroller){ scroller.scrollTop = 0; });
+          scheduleMobileBoundary(target);
         }
         applyTransform();
         updateActive();
@@ -681,8 +708,12 @@
         });
       });
 
-      // On phones, each section is a full-height card with its own scroll area.
-      // Reaching an edge only arms navigation; a separate swipe after release flips.
+      // Scrollable cards arm paging after resting briefly at an edge.
+      [profileEl].concat(PAGE_IDS.map(function(id){ return document.getElementById(id); })).forEach(function(scroller){
+        if(!scroller) return;
+        scroller.addEventListener('scroll', function(){ scheduleMobileBoundary(scroller); }, { passive:true });
+      });
+
       shellEl.addEventListener('touchstart', function(e){
         if(!isMobilePager() || mobileAnimating || e.touches.length !== 1) return;
         mobileTouchStartY = e.touches[0].clientY;
@@ -729,8 +760,7 @@
             mobileFlip(dir);
           } else {
             clearMobilePreview();
-            mobileBoundaryDir = dir;
-            mobileBoundaryArmed = true;
+            scheduleMobileBoundary(scroller);
           }
         }, 40);
       }, { passive:true });

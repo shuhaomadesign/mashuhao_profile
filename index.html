@@ -455,14 +455,12 @@
       var mobileIndex = 0;
       var animating = false;
       var ANIM_MS = 720;
-      var COOLDOWN_MS = 650;    // absorbs momentum without making the next page feel locked
       var WHEEL_THRESHOLD = 22; // short, deliberate second gesture after boundary confirmation
       var wheelAccum = 0;
       var wheelResetTimer = null;
       var boundaryIntentDir = 0;
       var boundaryIntentReady = false;
       var boundaryIntentTimer = null;
-      var lastNavAt = 0;
       var mobileAnimating = false;
       var mobileBoundaryDir = 0;
       var mobileBoundaryArmed = false;
@@ -547,7 +545,6 @@
         currentIndex = index;
         wheelAccum = 0;
         clearBoundaryIntent();
-        lastNavAt = Date.now();
         var target = document.getElementById(PAGE_IDS[index]);
         if(target){
           target.scrollTop = 0;
@@ -566,6 +563,10 @@
 
       function mobileScroller(index){
         return index === 0 ? profileEl : document.getElementById(PAGE_IDS[index - 1]);
+      }
+
+      function hasInternalScroll(el){
+        return el && el.scrollHeight > el.clientHeight + 2;
       }
 
       function clearMobileBoundary(){
@@ -610,6 +611,13 @@
         }
         e.preventDefault();
         if(Math.abs(e.deltaY) < 3) return;
+        if(!hasInternalScroll(scroller)){
+          mobileWheelAccum += Math.abs(e.deltaY);
+          clearTimeout(mobileWheelReleaseTimer);
+          mobileWheelReleaseTimer = setTimeout(function(){ mobileWheelAccum = 0; }, 260);
+          if(mobileWheelAccum >= WHEEL_THRESHOLD) mobileFlip(dir);
+          return;
+        }
         clearTimeout(mobileWheelReleaseTimer);
         if(!mobileBoundaryArmed || mobileBoundaryDir !== dir){
           mobileBoundaryDir = dir;
@@ -668,6 +676,10 @@
         mobileTouchStartedAtBoundary = false;
         if(Math.abs(dy) < 38) return;
         var dir = dy > 0 ? 1 : -1;
+        if(!hasInternalScroll(scroller)){
+          mobileFlip(dir);
+          return;
+        }
         window.setTimeout(function(){
           var atBoundary = dir > 0
             ? scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2
@@ -693,11 +705,10 @@
       }
 
       function canFlip(){
-        return !animating && (Date.now() - lastNavAt) >= COOLDOWN_MS;
+        return !animating;
       }
 
       function flip(dir){
-        lastNavAt = Date.now();
         wheelAccum = 0;
         clearBoundaryIntent();
         navigateDelta(dir);
@@ -731,6 +742,13 @@
         if(Math.abs(e.deltaY) < 3) return; // ignore momentum-tail micro ticks
 
         var direction = e.deltaY > 0 ? 1 : -1;
+        if(!hasInternalScroll(el)){
+          wheelAccum += e.deltaY;
+          clearTimeout(wheelResetTimer);
+          wheelResetTimer = setTimeout(function(){ wheelAccum = 0; }, 260);
+          if(Math.abs(wheelAccum) >= WHEEL_THRESHOLD) flip(direction);
+          return;
+        }
         if(boundaryIntentDir !== direction || !boundaryIntentReady){
           boundaryIntentDir = direction;
           boundaryIntentReady = false;
@@ -765,6 +783,10 @@
         if(!canFlip()) return;
         var el = activePageEl();
         if(!el) return;
+        if(!hasInternalScroll(el)){
+          flip(dy > 0 ? 1 : -1);
+          return;
+        }
         var canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight - 2;
         var canScrollUp = el.scrollTop > 2;
         if(dy > 0 && !canScrollDown){ flip(1); }

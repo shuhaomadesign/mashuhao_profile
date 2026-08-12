@@ -275,6 +275,13 @@
       .nav-links a.active:after{display:none}
     }
 
+    @media(min-width:601px) and (max-width:767px){
+      .featured{gap:0;background:transparent}
+      .project{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+      .project:nth-child(2n){border-right:0}
+      .project:nth-child(2n+1):nth-last-child(-n+2),.project:nth-child(2n+1):nth-last-child(-n+2)~.project{border-bottom:0}
+    }
+
     @media(max-width:600px){
       .featured{grid-template-columns:1fr}
       .project-visual{height:clamp(180px,55vw,300px)}

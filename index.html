@@ -256,7 +256,9 @@
       .identity h1{margin:0;text-align:center}
       .identity .role{margin:.25rem 0 0;text-align:center;line-height:1.2}
       .identity .meta{grid-area:meta;width:min(100%,25rem);gap:clamp(.4rem,1.2vh,.75rem);margin:0 auto;padding:clamp(.65rem,1.8vh,1rem) 0;line-height:1.2;align-self:center}
-      .identity .meta-row{width:min(100%,20.5rem);margin-inline:auto;grid-template-columns:4.8rem minmax(0,1fr);gap:.65rem;text-align:left}
+      .identity .meta-inner{width:fit-content;max-width:100%;margin-inline:auto;display:grid;grid-template-columns:4.8rem minmax(0,15rem);column-gap:.65rem;row-gap:clamp(.4rem,1.2vh,.75rem);text-align:left}
+      .identity .meta-row{display:contents}
+      .identity .meta-row>div{min-width:0;overflow-wrap:anywhere}
       .identity .contact{grid-area:contact;justify-content:center;gap:.5rem;margin:0;align-self:start}
       .identity .chip{width:clamp(2.25rem,5.5vh,2.65rem);height:clamp(2.25rem,5.5vh,2.65rem)}
       .nav-toggle{display:flex}
@@ -312,10 +314,12 @@
           <p class="role">HCI and Design Researcher</p>
         </div>
         <div class="meta">
-          <div class="meta-row"><span>Position</span><div>Lecturer in Computer Science</div></div>
-          <div class="meta-row"><span>Affiliation</span><div>School of Computer Science,<br>Northumbria University</div></div>
-          <div class="meta-row"><span>Location</span><div>Newcastle upon Tyne, UK</div></div>
-          <div class="meta-row"><span>Email</span><div><a href="mailto:shuhao.ma@northumbria.ac.uk">shuhao.ma@northumbria.ac.uk</a></div></div>
+          <div class="meta-inner">
+            <div class="meta-row"><span>Position</span><div>Lecturer in Computer Science</div></div>
+            <div class="meta-row"><span>Affiliation</span><div>School of Computer Science,<br>Northumbria University</div></div>
+            <div class="meta-row"><span>Location</span><div>Newcastle upon Tyne, UK</div></div>
+            <div class="meta-row"><span>Email</span><div><a href="mailto:shuhao.ma@northumbria.ac.uk">shuhao.ma@northumbria.ac.uk</a></div></div>
+          </div>
         </div>
         <div class="contact" aria-label="Contact and profiles">
           <a class="chip" href="https://scholar.google.com/citations?user=2b5qA90AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">

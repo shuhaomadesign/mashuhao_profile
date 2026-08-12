@@ -224,9 +224,7 @@
       .pub-year{order:-1}
       .pub-venue{text-align:left;order:2;margin-top:.15rem}
 
-    }
-
-    @media(max-width:767px){
+      /* card paging throughout the full single-column range */
       html,body{height:100%;overflow:hidden}
       .shell{position:fixed;top:var(--nav-h);right:0;bottom:0;left:0;max-width:none;overflow:hidden}
       .identity{position:absolute;inset:0;height:100%;overflow-y:auto;overscroll-behavior:contain;transition:transform .55s cubic-bezier(.65,0,.2,1);scrollbar-width:thin}
@@ -236,7 +234,9 @@
       .pages{height:100%;transition:transform .55s cubic-bezier(.65,0,.2,1);will-change:transform}
       .page{height:100%;overflow-y:auto;overscroll-behavior:contain;border-bottom:0;scrollbar-width:thin}
       .news-list{height:auto;overflow:visible;overscroll-behavior:auto}
+    }
 
+    @media(max-width:767px){
       .nav-toggle{display:flex}
       .nav-links{position:fixed;top:var(--nav-h);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:.3rem clamp(1rem,5vw,1.75rem) .6rem;background:rgba(7,53,181,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;box-shadow:0 12px 24px rgba(4,25,90,.35)}
       .nav-links.open{opacity:1;transform:translateY(0);pointer-events:auto}
@@ -434,9 +434,11 @@
       var mobileTouchStartY = null;
       var mobileTouchScroller = null;
       var mobileTouchStartedAtBoundary = false;
+      var mobileWheelAccum = 0;
+      var mobileWheelReleaseTimer = null;
 
       function isDesktop(){ return window.matchMedia('(min-width:1024px)').matches; }
-      function isMobilePager(){ return window.matchMedia('(max-width:767px)').matches; }
+      function isMobilePager(){ return window.matchMedia('(max-width:1023px)').matches; }
 
       function openMenu(){ navLinksEl.classList.add('open'); navToggleEl.setAttribute('aria-expanded','true'); }
       function closeMenu(){ navLinksEl.classList.remove('open'); navToggleEl.setAttribute('aria-expanded','false'); }
@@ -548,6 +550,34 @@
         window.setTimeout(function(){ mobileAnimating = false; }, 580);
       }
 
+      shellEl.addEventListener('wheel', function(e){
+        if(!isMobilePager() || mobileAnimating) return;
+        var scroller = mobileScroller(mobileIndex);
+        if(!scroller) return;
+        var dir = e.deltaY > 0 ? 1 : -1;
+        var atBoundary = dir > 0
+          ? scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2
+          : scroller.scrollTop <= 2;
+        if(!atBoundary){
+          mobileWheelAccum = 0;
+          clearMobileBoundary();
+          return;
+        }
+        e.preventDefault();
+        if(Math.abs(e.deltaY) < 3) return;
+        clearTimeout(mobileWheelReleaseTimer);
+        if(!mobileBoundaryArmed || mobileBoundaryDir !== dir){
+          mobileBoundaryDir = dir;
+          mobileBoundaryArmed = false;
+          mobileWheelAccum = 0;
+          mobileWheelReleaseTimer = setTimeout(function(){ mobileBoundaryArmed = true; }, 180);
+          return;
+        }
+        mobileWheelAccum += Math.abs(e.deltaY);
+        mobileWheelReleaseTimer = setTimeout(function(){ mobileWheelAccum = 0; }, 180);
+        if(mobileWheelAccum >= WHEEL_THRESHOLD) mobileFlip(dir);
+      }, { passive:false });
+
       function navigateDelta(dir){
         var next = currentIndex + dir;
         if(next < 0 || next > PAGE_IDS.length - 1) return;
@@ -566,7 +596,7 @@
             e.preventDefault();
             if(isMobilePager()) goToMobile(a.classList.contains('brand') ? 0 : idx + 1); else goTo(idx);
           }
-          // tablet keeps native document scrolling
+          // all single-column layouts use card paging
           closeMenu();
         });
       });
@@ -715,7 +745,7 @@
         resizeTimer = setTimeout(function(){ applyTransform(); updateActive(); }, 100);
       });
 
-      // Sync active nav while scrolling on mobile
+      // Sync active nav only in normal document-flow layouts
       if('IntersectionObserver' in window){
         var io = new IntersectionObserver(function(entries){
           if(isDesktop() || isMobilePager()) return;
